@@ -8,7 +8,6 @@ import mars.simulator.*;
 
 public class BEND32 extends CustomAssembly {
 
-    // We'll use register 27 ("av" in your spec) as the Avatar-state flag.
     private static final int AVATAR_REGISTER = 27;
 
     @Override
@@ -23,16 +22,8 @@ public class BEND32 extends CustomAssembly {
 
     @Override
     protected void populate() {
-        /*
-         * Helper notes about the opcode masks:
-         *  - Use BasicInstructionFormat.R_FORMAT, I_FORMAT, I_BRANCH_FORMAT, or J_FORMAT.
-         *  - The mask string is 32 chars using 0,1,f,s,t.
-         *    'f','s','t' correspond to the 1st, 2nd, 3rd operands in the example string.
-         */
 
-        // ---------------------------------------------------------------------
-        // Basic Earth (R-type) ALU instructions
-        // ---------------------------------------------------------------------
+        // Basic Earth (R-type)  instructions
 
         // 1. RAISE rd, rs, rt  (add)
         // opcode = 000000, funct = 000000
@@ -139,9 +130,7 @@ public class BEND32 extends CustomAssembly {
             )
         );
 
-        // ---------------------------------------------------------------------
         // Water (I-type) memory + immediate
-        // ---------------------------------------------------------------------
 
         // 6. FLOW rt, imm(rs)   (load word, like lw)
         // opcode = 100011
@@ -223,9 +212,8 @@ public class BEND32 extends CustomAssembly {
             )
         );
 
-        // ---------------------------------------------------------------------
+        
         // Air (branches + jumps)
-        // ---------------------------------------------------------------------
 
         // 9. SWIRL rs, rt, label  (branch if equal)
         // opcode = 000100
@@ -385,9 +373,6 @@ public class BEND32 extends CustomAssembly {
             )
         );
 
-        // ---------------------------------------------------------------------
-        // Unique R-type: RIPPLE (average)
-        // ---------------------------------------------------------------------
 
         // 15. RIPPLE rd, rs, rt  (average)
         // funct = 000101
@@ -411,9 +396,7 @@ public class BEND32 extends CustomAssembly {
             )
         );
 
-        // ---------------------------------------------------------------------
-        // Avatar state & system interaction
-        // ---------------------------------------------------------------------
+        // Avatar state + system 
 
         // 16. AVATAR.ON   (set AV flag = 1)
         // opcode = 000000, funct = 001000
@@ -447,7 +430,7 @@ public class BEND32 extends CustomAssembly {
             )
         );
 
-        // 18. MEDITATE  (halt – simple implementation)
+        // 18. MEDITATE  
         // opcode = 000000, funct = 001010
         instructionList.add(
             new BasicInstruction(
@@ -465,7 +448,7 @@ public class BEND32 extends CustomAssembly {
             )
         );
 
-        // 19. SPIRITCALL imm  (trap into “Spirit World”)
+        // 19. SPIRITCALL
         // opcode = 011000
         instructionList.add(
             new BasicInstruction(
